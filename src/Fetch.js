@@ -456,11 +456,11 @@ function startFetch(fetch, successcb, errorcb, progresscb, readystatechangecb) {
 #if FETCH_DEBUG
     console.log('fetch: operation success. e: ' + e);
 #endif
-    {{{ runtimeKeepalivePop() }}}
     callUserCallback(function() {
       if (onsuccess) {{{ makeDynCall('vi', 'onsuccess') }}}(fetch);
       else if (successcb) successcb(fetch);
     });
+    {{{ runtimeKeepalivePop() }}}
   };
 
   var reportProgress = function(fetch, xhr, e) {
@@ -474,11 +474,11 @@ function startFetch(fetch, successcb, errorcb, progresscb, readystatechangecb) {
 #if FETCH_DEBUG
     console.error('fetch: operation failed: ' + e);
 #endif
-    {{{ runtimeKeepalivePop() }}}
     callUserCallback(function() {
       if (onerror) {{{ makeDynCall('vi', 'onerror') }}}(fetch);
       else if (errorcb) errorcb(fetch);
     });
+    {{{ runtimeKeepalivePop() }}}
   };
 
   var reportReadyStateChange = function(fetch, xhr, e) {
@@ -507,21 +507,21 @@ function startFetch(fetch, successcb, errorcb, progresscb, readystatechangecb) {
 #if FETCH_DEBUG
       console.log('fetch: IndexedDB store succeeded.');
 #endif
-      {{{ runtimeKeepalivePop() }}}
       callUserCallback(function() {
         if (onsuccess) {{{ makeDynCall('vi', 'onsuccess') }}}(fetch);
         else if (successcb) successcb(fetch);
       });
+      {{{ runtimeKeepalivePop() }}}
     };
     var storeError = function(fetch, xhr, e) {
 #if FETCH_DEBUG
       console.error('fetch: IndexedDB store failed.');
 #endif
-      {{{ runtimeKeepalivePop() }}}
       callUserCallback(function() {
         if (onsuccess) {{{ makeDynCall('vi', 'onsuccess') }}}(fetch);
         else if (successcb) successcb(fetch);
       });
+      {{{ runtimeKeepalivePop() }}}
     };
     fetchCacheData(Fetch.dbInstance, fetch, xhr.response, storeSuccess, storeError);
   };
