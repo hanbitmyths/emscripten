@@ -5527,6 +5527,11 @@ int main() {
     self.assertContained('Hello4', out)
     self.assertContained('Ok', out)
 
+  def test_dlopen_no_undefined(self):
+    # Test that ERROR_ON_UNDEFINED_SYMBOLS works with MAIN_MODULE.
+    self.run_process([EMCC, '-sMAIN_MODULE', '-sERROR_ON_UNDEFINED_SYMBOLS', test_file('hello_world.c')])
+    self.run_js('a.out.js')
+
   def test_dlopen_bad_flags(self):
     create_file('main.c', r'''
 #include <dlfcn.h>
